@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background</title>
+    <style>
+        p{
+            background-color: #0000ff80;
+        }
+        
+        div{
+            height:1000px;
+            border: solid 2px red;
+            background-image: url("https://cdn.pixabay.com/photo/2023/02/24/07/14/crowd-7810353_960_720.jpg");
+            /* ↑ 배경은 빈공간은 무조건 채워줘야 하기때문에 사진이 반복됨 */
+            background-repeat: no-repeat;
+            /* background-repeat: repeat-y;  */
+            /* x축/y축 반복 정할 수 있다. */
+
+            /* background-position: bottom right; */
+            /* background-position: 20px 50px; */
+            background-position: center;
+
+            /* 요소가 완전히 덮여질수있도록함 -> cover */
+            background-size:cover;
+
+            /* 비율에 맞춰서 -> contain */
+            /* background-size:contain; */
+
+            
+
+        }
+    </style>
+</head>
+<body>
+    <!-- <p>BG Color</p> -->
+    
+    <div></div>
+
+</body>
+</html>

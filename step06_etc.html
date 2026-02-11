@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="etc 실습">
+    <title>ETC</title>
+</head>
+<body>
+    <div>
+        &copy;
+        &lt;
+        &gt;
+        &quot;
+    </div>
+    
+    <hr>
+    
+    <iframe src="/01.html/step05_form_prac.html"
+                sandbox="allow-forms"
+                frameborder="0"
+                width="700px" height="600px">
+    </iframe>
+
+    <hr>
+
+    <!-- data-XXX 속성은 사용자 정의 속성 -->
+    <video width="320" height="240" 
+            controls 
+            autoplay
+            loop
+            muted
+            poster=""
+            id="video-num1"
+            data-id="100000010340505">
+        <source src="https://cdn.pixabay.com/video/2023/01/30/148594-794221537_large.mp4" 
+                type="video/mp4">
+    </video>
+
+
+    <script>
+        const video = document.getElementById('video-num1');
+        console.log(video.dataset);
+        console.log(video.dataset.id);
+    </script>
+
+</body>
+</html>

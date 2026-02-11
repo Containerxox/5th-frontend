@@ -84,6 +84,22 @@
             content:"?";
         }
 
+        /* 우선순위 */
+        /* !important > id(100) > class(10) > tag(1) > *(0)  */
+        /* ↓ 1점 */
+        ul.before li{
+            color:gold;
+        }
+        /* ↓ 1+100+10 = 111점 */
+        ul.before li#mo4.cl4{
+            color:blue;
+        }
+        /* ↓ 1+100 = 101점 */
+        ul.before li#no4{
+            color:red;
+        }
+        
+
 
     </style>
 </head>
@@ -127,7 +143,7 @@
         <li>1</li>
         <li>2</li>
         <li>3</li>
-        <li>4</li>
+        <li id="no4" class="cl4">4</li>
         <li>5</li>
         <li>6</li>
         <li>7</li>
@@ -135,6 +151,10 @@
         <li>9</li>
         <li>10</li>
     </ul>
+
+    <!-- 우선순위 -->
+    <!-- 명시도 -->
+    <!-- !important > id(100) > class(10) > tag(1) > *(0) -->
 
 </body>
 </html>

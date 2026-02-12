@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overflow</title>
+    <style>
+        div.overflow{
+            width: 100px;
+            height: 100px;
+            box-sizing:border-box;
+            border: 4px dashed;
+            /* overflow:visible; */
+            /* overflow: hidden; */
+            /* overflow: scroll; */
+            /* overflow: auto; */
+            /* overflow-x: hidden; */
+
+
+            /* ▷ 나머지는 생략된 것 처럼 표현하고 싶다면.. 사용할 세트!*/
+            /* 텍스트가 한 줄에서 넘칠때 ...(말줄임표)로 처리*/
+            overflow: hidden;
+            text-overflow: ellipsis; /* ... 표시 */
+            white-space: nowrap;   /* 텍스트 줄바꿈 금지 (무조건 한 줄 유지) */
+        }
+    </style>
+</head>
+<body>
+    <div class="overflow">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa facere dolorem, numquam, recusandae quas mollitia saepe, expedita quia quam asperiores fugit rem dolore quidem culpa natus suscipit nihil! Asperiores, est!
+    </div>
+</body>
+</html>

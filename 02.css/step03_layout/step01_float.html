@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Float</title>
+    <style>
+        div.picture{
+            width: 100px;
+            height: 100px;
+            background-color: dodgerblue;
+            /* float:none; */
+            /* float: right; */
+            float:left;
+        }
+        
+
+        /* float 해제 */
+        .clearfix::after{
+            content: "";
+            clear:left;
+            display:block;
+        }
+        
+    </style>
+</head>
+<body>
+    <article class="clearfix">
+        <div class="picture"></div>
+    </article>
+    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam illo perferendis id, suscipit, et, perspiciatis sunt accusamus delectus explicabo rerum ipsa provident mollitia aspernatur? Ipsa magnam maiores voluptatem consequatur voluptate?</span>
+</body>
+</html>

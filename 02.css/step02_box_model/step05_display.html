@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display</title>
+    <style>
+        
+        span{
+            width: 100px;
+            height: 100px;
+            background-color: gold;
+
+            /* display:block; */
+            display: inline-block;
+
+            /* display: none;  */
+            visibility: hidden;
+            /*  ● display: none과 visibility: hidden 차이점 */
+            /* display: none은 요소가 아예 사라짐.(공간 차지 X) */
+            /* visibility: hidden은 요소가 보이진 않지만 특정 영역의 공간을 차지한다. */
+        }
+
+        div{
+            height: 100px;
+            background-color: tomato;
+        }
+
+    </style>
+</head>
+<body>
+    <span></span>
+    <div></div>
+</body>
+</html>

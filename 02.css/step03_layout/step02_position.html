@@ -51,12 +51,13 @@
 
         }
 
+        /* ▶ sticky CSS */
         div.container{
             width: 400px;
             height: 800px;
             border: 3px solid red;
             margin: 50px;
-            overflow:auto;
+            overflow:auto; /*sticky는 스크롤 되는 부모요소(container)를 기준으로 움직임*/
         }
         section.section {
             height: 300px;
@@ -65,10 +66,28 @@
         section.section h1{
             text-align: center;
             position: sticky;
-            top: 0;
+            top: 0; /*h1이 스크롤 컨테이너(div.container)의 top:0 위치에 도달하면 붙음 */
         }
 
         
+        /* Z축 관련 CSS */
+        .box{
+            width: 100px;
+            height: 100px;
+            background:red;
+            border: 3px dashed navy;
+            float: left;
+            margin-left: -10px;
+        }
+        .box:nth-child(2n){
+            margin-top: 30px;
+        }
+
+        .box3{
+            position: relative;
+            z-index: 1; /*숫자가 클수록 더 위에 올라온다 */
+        }
+
     </style>
 </head>
 <body>
@@ -76,8 +95,9 @@
         <div class="child"></div>
     </div> -->
 
-    <!-- sticky 구현 -->
-    <div class="container">
+
+    <!-- ▶ sticky 구현 -->
+    <!-- <div class="container">
         <section class="section">
             <h1>제목1</h1>
         </section>
@@ -93,7 +113,18 @@
         <section class="section">
             <h1>제목5</h1>
         </section>
-    </div>
+    </div> -->
+
+
+    <!-- Z축 -->
+    <div class="box">1</div>
+    <div class="box box2">2</div>
+    <div class="box box3">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+
+
+
 </body>
 </html>
 

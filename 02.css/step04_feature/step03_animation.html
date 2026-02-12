@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background: gold;
+        }
+
+        @keyframes change-size-color{
+            0%{
+                width: 100px;
+            }
+            50%{
+                width: 300px;
+                background-color: green;
+            }
+            100%{
+                width: 200px;
+                background-color: red;
+            }
+        }
+
+        .box:hover{
+            animation-name: change-size-color;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            /* animation-direction: reverse; */
+            animation-direction: alternate;
+        }
+        .delay-box{
+            width: 100px;
+            height: 100px;
+            background: gold;
+            margin: 20px;
+        }
+        @keyframes up-size{
+            0%{
+                width: 100px;
+            }
+            100%{
+                width: 300px;
+            }
+        }
+
+
+        .box1:hover{
+            animation-name:up-size;
+            animation-duration: 3s;
+            animation-delay: 0s;
+        }
+        .box2:hover{
+            animation-name:up-size;
+            animation-duration: 3s;
+            animation-delay: 1s;
+        }
+        .box3:hover{
+            animation-name:up-size;
+            animation-duration: 3s;
+            animation-delay: -1s;
+        }
+
+
+        @keyframes fill-mode{
+            0%{
+                transform: translate(200px, 0);
+            }
+            100%{
+                transform: translate(400px, 400px);
+            }
+        }
+        .fill-mode{
+            animation-name: fill-mode;
+            animation-duration: 4s;
+            /* animation-iteration-count: infinite; */
+            /* animation-fill-mode: none; */
+            /* animation-fill-mode: forwards; */
+            /* animation-fill-mode: backwards; */
+            animation-fill-mode: both;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- /* animation */
+        /* -name              : @keyframes 규칙의 이름을 지정 (none) */
+        /* -duration          : 지속시간 설정(0s) */
+        /* -timing-function   : 타이밍함수지정(ease) */
+        /* -delay             : 대기시간설정(0s) */
+        /* -iteration-count   : 반복횟수(1) */
+        /* -direction         : 방향설정(normal) */
+        /* -fill-mode         : 전후상태(위치)설정(none) */
+        /* -play-state        : 재생과 정지 설정(running) */     -->
+
+
+    <!-- <div class="box"></div> -->
+
+    <!-- <div class="delay-box box1">0s</div>
+    <div class="delay-box box2">1s</div>
+    <div class="delay-box box3">-1s</div> -->
+
+    <div class="delay-box fill-mode"></div>
+
+</body>
+</html>

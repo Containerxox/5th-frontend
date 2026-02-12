@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padding</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: gold;
+            
+            /* padding: 30px; */
+            padding-top: 10px;
+            padding-right: 20px;
+            padding-bottom: 30px;
+            padding-left: 40px;
+
+            padding: 10px 20px 30px 40px; /*상 후 하 좌 (시계방향) */
+            padding: 10px 20px 10px; /*상 [우 좌] 하 */
+            padding: 10px 20px; /* [상 하] [우 좌] */
+            padding: 10px; /* [상 우 하 좌] */
+
+            box-sizing: content-box; /*border, padding은 바깥으로 더해져서 실제 크기가 커짐*/ /*width기준, 컨텐츠만*/
+            box-sizing: border-box; /* padding + border까지 width/height 안에 포함됨*/ /*width기준, 컨텐츠+padding+border*/
+        }
+    </style>
+</head>
+<body>
+    <div>
+        Hello, CSS
+    </div>
+</body>
+</html>

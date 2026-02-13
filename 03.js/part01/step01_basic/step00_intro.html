@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <!-- <script> -->
+        <!-- // document.getElementById("header").innerHTML = "script header";
+        // header아이디 요소를 인식 못함. 
+        // 방법1) <div id="header">header</div> 코드 보다 아래에 적어줘야 인식 가능.
+        // 방법2) async 키워드 / defer 키워드 붙여주기 (외부 스크립트가져올때 사용함) -->
+        <!-- ▪ async 키워드: HTML 파싱 + script 다운로드 => 다운로드 완료시, 즉시 실행 -->
+        <!-- ▪  defer 키워드: HTML 파싱 + script 다운로드 =>  HTML 파싱 완료시, 실행 (async보다 안정성)-->
+    <!-- </script> -->
+    
+    <script defer src="../step01_basic/js/script.js"></script>
+</head>
+<body>
+    <div id="header">header</div>
+    <div id="section">section</div>
+    
+    <script>
+        //주석
+        let myHeight = 180;
+        let YourHeight = 180;
+        
+        // document.getElementById("header").innerHTML = "script header";
+    </script>
+
+
+    <!-- 코드 위-> 아래 순서대로 실행됨 -->
+</body>
+</html>

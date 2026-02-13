@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variable & Type</title>
+</head>
+<body>
+    <script>
+        // ▶ 변수  -> 타입의 유동성 ! (동적 변수)
+        // camelCase
+        // 키워드
+        // var : 일반 변수 선언
+        // let : 일반 변수 선언
+        // const : 상수 변수 선언
+
+        var x;
+        x = 10;
+        console.log(x);
+        var x = 10; // 중복 선언 가능
+
+
+        let y; 
+        y= 20;
+        console.log(y);
+        // let y = 20; // 중복 선언 불가능
+
+
+        const z = 30;
+        // z = 300; //const 키워드는 상수이므로 재할당 불가!
+        // const z = 40; // 중복 선언 불가능
+        console.log(z);
+
+
+        // =============================================
+        // 타입
+        console.log(typeof 10);
+        console.log(typeof 10.3444);
+
+        console.log(typeof '10.334'); 
+        console.log(typeof "10.334");
+        console.log(typeof `10.334`);
+
+        console.log(null);
+        console.log(typeof null);
+
+        let name;
+        console.log(name); //선언만 되어있고 값이 없으므로 undefined
+
+        console.log(typeof true);
+        console.log(typeof false);
+
+
+        // Symbol : 절대 겹치지 않는 유일한 값(고유 ID)을 만드는 타입
+        const id1 = Symbol();
+        const id2 = Symbol();
+        console.log(id1 === id2); // false 
+
+        const a = Symbol("id");
+        const b = Symbol("id");
+        console.log(a === b); // false
+
+
+        const symbol1 = Symbol('githubApiKey');
+        console.log(typeof symbol1);
+
+
+
+
+
+    </script>
+</body>
+</html>
+
+
+<!-- 
+▶ Types
+String    : 문자열("")
+Number    : 숫자(num)
+Bigint    : 숫자형(-(2^53-1) ~ 2^53-1 외 정수)(1234341231231232132548989426n)
+Boolean   : 논리(true, false)
+Undefined : 값이 할당되지 않은 상태(undefined) (선언만되어 있고 아직 값이 없을 때)
+Null      : 비어있는, 알수 없는 값(null) (의도적으로 값을 비움)
+Object    : 객체
+Symbol    : 고유 식별자 생성
+
+▶ Type 비교
+typeof 
+-->

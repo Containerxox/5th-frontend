@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>function</title>
+</head>
+<body>
+    <script>
+        // ▶ 선언
+        function add(x,y) {
+            return x + y;
+        }
+        // let result = add(10,20);
+        // console.log(result);
+
+
+        // ▶ 표현 
+        // (변수 자체가 함수의 이름이 돼서 함수의 이름을 따로 만들지 않아도 됨.)
+        let sub = function (x,y){
+            return x - y;
+        }
+        // console.log(sub(10,20));
+
+
+        // ▶ 화살표 함수 =>
+        let arrowSub = (x,y) => x - y;
+        // console.log(arrowSub(10,20));
+        
+        // ▶ 콜백 함수
+        function print(infomation){
+            infomation();
+        }
+
+        function info(){
+            console.log('javascript');
+        }
+
+        print(info);
+        // 주의 print(info()); 가 아니다!
+
+    </script>
+</body>
+</html>

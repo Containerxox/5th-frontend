@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PIMPAN | Pet Outerwear & Jumpsuits</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===== Base Reset ===== */
+    *, *::before, *::after { box-sizing: border-box; }
+    body, h1, h2, h3, p { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    body{
+      font-family: "Inter", sans-serif;
+      color:#000;
+      background:#fff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ===== Utilities ===== */
+    .uppercase-tracking{
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .border-b-thin{ border-bottom: 1px solid #000; }
+    .border-t-thin{ border-top: 1px solid #000; }
+    .border-r-thin{ border-right: 1px solid #000; }
+
+    /* ===== Layout Containers ===== */
+    .page{
+      width: 100%;
+    }
+
+    /* ===== Header ===== */
+    .header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #fff;
+      border-bottom: 1px solid #000;
+    }
+
+    .nav{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+      gap: 10px;
+    }
+
+    /* Desktop: row layout */
+    @media (min-width: 768px){
+      .nav{
+        flex-direction: row;
+        gap: 0;
+        padding: 0 16px;
+      }
+    }
+
+    .nav-left,
+    .nav-right{
+      display:none;
+      align-items:center;
+      gap: 0;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    @media (min-width: 768px){
+      .nav-left,
+      .nav-right{ display:flex; }
+    }
+
+    .nav-left a{
+      padding: 16px 8px;
+    }
+    .nav-left a:not(:last-child){
+      border-right: 1px solid #000;
+    }
+
+    .nav-right a{
+      padding: 16px 0;
+    }
+    .nav-right{
+      gap: 24px;
+    }
+
+    .dropdown{
+      display:flex;
+      align-items:center;
+      gap: 6px;
+      cursor:pointer;
+      padding: 16px 0;
+      user-select:none;
+    }
+
+    .nav a:hover,
+    .dropdown:hover{
+      opacity: 0.6;
+    }
+
+    .logo{
+      padding: 14px 0;
+    }
+    .logo h1{
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    /* Mobile menu placeholder */
+    .mobile-bar{
+      width:100%;
+      display:flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #000;
+      margin-bottom: 6px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    @media (min-width: 768px){
+      .mobile-bar{ display:none; }
+    }
+
+    /* ===== Top Banner Items ===== */
+    .top-banner{
+      display:grid;
+      grid-template-columns: 1fr;
+      border-bottom: 1px solid #000;
+    }
+
+    @media (min-width: 768px){
+      .top-banner{ grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .mini-card{
+      padding: 24px;
+      min-height: 80px;
+      display:flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @media (min-width: 768px){
+      .mini-card:not(:last-child){
+        border-right: 1px solid #000;
+      }
+    }
+
+    .mini-row{
+      display:flex;
+      justify-content: space-between;
+      align-items:flex-start;
+      gap: 16px;
+    }
+
+    .mini-title{
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .mini-sub{
+      font-size: 10px;
+      color:#6b7280; /* gray-500 느낌 */
+    }
+    .mini-price{
+      font-size: 10px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* ===== Section Title ===== */
+    .section-title{
+      padding: 48px 0;
+      text-align:center;
+      border-bottom: 1px solid #000;
+    }
+    .section-title h2{
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 48px;
+    }
+    @media (min-width: 768px){
+      .section-title h2{ font-size: 72px; }
+    }
+
+    /* ===== Product Grid ===== */
+    .product-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px){
+      .product-grid{
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .product-card{
+      display:flex;
+      flex-direction: column;
+      cursor:pointer;
+    }
+
+    @media (min-width: 768px){
+      .product-card:not(:last-child){
+        border-right: 1px solid #000;
+      }
+    }
+
+    .img-wrap{
+      aspect-ratio: 3 / 4;
+      overflow:hidden;
+      background:#fafafa;
+      padding: 32px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .product-img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .product-card:hover .product-img{
+      transform: scale(1.05);
+    }
+
+    .product-info{
+      margin-top:auto;
+      padding: 24px;
+      border-top: 1px solid #000;
+    }
+
+    .info-row{
+      display:flex;
+      justify-content: space-between;
+      align-items:flex-end;
+      gap: 16px;
+    }
+
+    .product-name{
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .product-name.is-underlined{
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .product-color{
+      font-size: 11px;
+      color:#6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 2px;
+    }
+
+    .product-price{
+      font-size: 11px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* ===== Footer ===== */
+    .footer{
+      border-top: 1px solid #000;
+      padding: 32px 0;
+    }
+
+    /* Optional: reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .product-img{ transition: none; }
+      .product-card:hover .product-img{ transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav" aria-label="Main navigation">
+        <!-- Mobile bar -->
+        <div class="mobile-bar uppercase-tracking">
+          <span>Menu</span>
+          <span>PIMPAN</span>
+        </div>
+
+        <!-- Left links (desktop) -->
+        <div class="nav-left uppercase-tracking" role="navigation">
+          <a href="#">New Arrivals</a>
+          <a href="#">Shop</a>
+          <a href="#">Custom-Made</a>
+          <a href="#">About</a>
+        </div>
+
+        <!-- Logo -->
+        <div class="logo">
+          <h1>PIMPAN</h1>
+        </div>
+
+        <!-- Right actions (desktop) -->
+        <div class="nav-right uppercase-tracking">
+          <a href="#">My Account</a>
+          <a href="#">Cart</a>
+
+          <div class="dropdown" aria-label="Language">
+            <span>EN</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+
+          <div class="dropdown" aria-label="Currency">
+            <span>EU€</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Top banner items -->
+    <section class="top-banner" aria-label="Top banner products">
+      <div class="mini-card">
+        <div class="mini-row">
+          <div>
+            <h3 class="mini-title uppercase-tracking">Jumpsuit</h3>
+            <p class="mini-sub uppercase-tracking">Off-White</p>
+          </div>
+          <span class="mini-price">€110</span>
+        </div>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-row">
+          <div>
+            <h3 class="mini-title uppercase-tracking">Jumpsuit</h3>
+            <p class="mini-sub uppercase-tracking">Brown</p>
+          </div>
+          <span class="mini-price">€110</span>
+        </div>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-row">
+          <div>
+            <h3 class="mini-title uppercase-tracking">Jumpsuit</h3>
+            <p class="mini-sub uppercase-tracking">Black</p>
+          </div>
+          <span class="mini-price">€110</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section title -->
+    <section class="section-title">
+      <h2>Outerwear</h2>
+    </section>
+
+    <!-- Main product grid -->
+    <main class="product-grid" aria-label="Product grid">
+      <article class="product-card">
+        <div class="img-wrap">
+          <img class="product-img" alt="Dog wearing a beige puffer vest"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa4Cy7ZMRGptLIVUOrqAZl1FkKMI5Um3oXoMnGiVVQCZlr2c-Z4o1dcGP4As3X4oLdqsEHYlqxKJzWWjxlDebQduhGFPOk8IcQZXmnO1320UOM0j996Ondx5srYdIhb15KeCRYj_lXibQXU1Fht7ZPVpsE0IevR2AC5bOXehyH7BpxFe5HoArpLk6ALGkEWLUzzzrIoUrkzCvz4Y_qjItFGqWsdtNsdQNE9HCkL0oXmKBA1JnmYrQImQ2r1tHwkr2416ALFdlVRA">
+        </div>
+        <div class="product-info">
+          <div class="info-row">
+            <div>
+              <h3 class="product-name uppercase-tracking is-underlined">Puffer Vest</h3>
+              <p class="product-color uppercase-tracking">Beige</p>
+            </div>
+            <span class="product-price">€180</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="img-wrap">
+          <img class="product-img" alt="Dog wearing a black puffer vest"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDS4uFnPmeOUFijtgqyqD9pCwK7OTlF8uBQotnMhL9BENTU7oI-iqTwxVNHwA5LJ5uwCn2fPUIfT0geCZ1yCcHGPlR5I94UT0p5j9fhVvmiSgBTq06042vlbv1E_tN6hxdGB-1j_0kcRk_CwIjDPfMsRdir6f2sXmx9k-AIUTUbpte-oW5oVwm1jHY3GGqyp55ZHztPR41SVhry3u11RPFCEN4m-vrY7F4QSKV1REt500MjKJ3H7bRbKUi1AfR3tLAfDz4ZtAmZrA">
+        </div>
+        <div class="product-info">
+          <div class="info-row">
+            <div>
+              <h3 class="product-name uppercase-tracking">Puffer Vest</h3>
+              <p class="product-color uppercase-tracking">Black</p>
+            </div>
+            <span class="product-price">€180</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="img-wrap">
+          <img class="product-img" alt="Dog wearing a beige puffer coat"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOKDdrvAe517UmgVG_f4pQgdtax8xMiax82PU4wknvXwi00O_uD5_2S4vuBBse5q07D68A4bedBcbrsX52oXL47mnAsOeB8lHRuMyvy5B5yDkJDZGsKIzcKzBy4uB0e3sWe-hPNDmhJAXxxk0-s6W7Ar-CHGO7dbvy4yEsZrmdNHNAFINXeJX-zBdklBc_Ci2tUsz3BrWRgpOoRZOEcb2FDJeN3V0bbyKI0e4xLaaclisbNFGK3qd5nkqdZAc0YAQdpPEdCZfeQg">
+        </div>
+        <div class="product-info">
+          <div class="info-row">
+            <div>
+              <h3 class="product-name uppercase-tracking">Puffer Coat</h3>
+              <p class="product-color uppercase-tracking">Beige</p>
+            </div>
+            <span class="product-price">€230</span>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="footer"></footer>
+  </div>
+</body>
+</html>

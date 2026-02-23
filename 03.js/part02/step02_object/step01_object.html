@@ -39,8 +39,64 @@
         }
 
         let bmw = new Car('bmw', 'red', 5000);
-        console.log(bmw);
-        bmw.turnOn();
+        // console.log(bmw);
+        // bmw.turnOn();
+
+
+        //  ===========실습=====================================
+        // Student - name, age, grade, printInfo()
+        function Student (name, age, grade){
+            this.name = name;
+            this.age = age;
+            this.grade = grade;
+
+            // this.printInfo = function(){
+            //     console.log(name, age, grade);
+            // }
+        }
+
+        let stu1 = new Student('kai',11, 'A')
+        // console.log(stu1);   
+        // stu1.printInfo();
+
+        // for ~ in  -> property 이름(name, age, grade)을 하나씩 꺼냄 (key 변수에 property를 하나씩 넣음)
+        // for (const key in stu1){ 
+        //     console.log(stu1[key]);
+        // }
+
+        // ===========================================================
+
+        // 객체 메소드
+        const user = {name: 'ce', age: 29, role:'dev'};
+        // console.log(Object.keys(user));
+        // console.log(Object.values(user));
+        // console.log(Object.entries(user)); //키:값 한쌍으로 출력
+
+        const defaults = { theme: 'light', lang: 'ko'};
+        const userSettings = {theme: 'dark'};
+        const settings = Object.assign({}, defaults, userSettings); // assign(): 두 개의 객체 합치기
+        // console.log(settings); // {theme: 'dark', lang: 'ko'}
+
+
+        // Product - name, price
+        class Product {
+            constructor(name, price) {
+                this.name = name;
+                this.price = price;
+            }
+
+            get displayPrice(){
+                return price;
+            }
+
+            set discountPrice(rate){
+                this.price = this.price * (1-rate);
+            }
+        }
+        
+        const keyboard = new Product('키보드', 50000);
+        console.log(keyboard);
+
 
     </script>
 </body>

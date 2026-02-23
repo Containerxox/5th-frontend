@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // ▶ call by value : 기본타입(불변데이터)
+        let height = 180;
+        let number = height;
+
+        // console.log(height); //180
+        // console.log(number); //180
+
+        height = 190;
+
+        // console.log(height); //190
+        // console.log(number); //190
+
+        // ▶ call by reference : 참조타입
+        // 객체생성
+        let person = {
+            name: 'IT'
+        }
+
+        // ▷ 얖은 복사
+        let copyPerson = person;
+
+        // ▷ 깊은 복사
+        // let deepCopyPerson = JSON.stringify(person);
+        // console.log(typeof deepCopyPerson);
+        let deepCopyPerson = JSON.parse(JSON.stringify(person));
+        // console.log(typeof deepCopyPerson);
+        console.log(deepCopyPerson);
+        // +) Json parse로 수행하는 것의 한계를 보완하기 위해 structuredClone()
+        // let deepCopyPerson = structuredClone(person);
+
+        // console.log(person);
+        // console.log(copyPerson);
+
+        person.name = 'dev';
+
+        // console.log(person);
+        // console.log(copyPerson);
+        console.log(deepCopyPerson);
+
+    </script>
+</body>
+</html>

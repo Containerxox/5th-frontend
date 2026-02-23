@@ -29,31 +29,113 @@
         // console.log(Boolean(NaN)); // boolean타입으로 변환
         // console.log(Boolean([])); // (비어있는) 배열을 boolean 타입으로 변환하면 true
         // console.log(Boolean({name: 'cloud'})); //  객체를 boolean 타입으로 변환하면 true
-        // console.log(Boolean('.')); // boolean타입으로 변환
+        // console.log(Boolean(' ')); // boolean타입으로 변환 //true
 
 
 
         // ▶ 암시적 타입 변환
         // ▷ string + number, boolean, .. => string
-        console.log('100'+ 50); // 10050 -> string
-        console.log('100'+true); //100true -> string
+        // console.log('100'+ 50); // 10050 -> string
+        // console.log('100'+true); //100true -> string
 
-        console.log('---')
+        // console.log('---')
         // ▷ string, number, boolean, 나머지연산 => number
-        console.log('100'- 50); //뺄셈을 하면 숫자타입으로! // 50
-        console.log('100'*50); //곱셈을 하면 숫자타입으로!
-        console.log('100'/50); //나눗셈을 하면 숫자타입으로!
-        console.log(100 + true); // 101 (100 + 1) // 숫자타입으로!
-        console.log(100 * '포인트'); // NaN // 연산불가
-        console.log(100 + null); // 100 (100 + 0) // 숫자타입으로!
-        console.log(100 + undefined); // NaN // 연산불가
-        console.log('100' - undefined); //NaN
-        console.log(100 + NaN); // NaN
-        console.log('100'-null); // 100
-        console.log('100'- NaN); // NaN
+        // console.log('100'- 50); //뺄셈을 하면 숫자타입으로! // 50
+        // console.log('100'*50); //곱셈을 하면 숫자타입으로!
+        // console.log('100'/50); //나눗셈을 하면 숫자타입으로!
+        // console.log(100 + true); // 101 (100 + 1) // 숫자타입으로!
+        // console.log(100 * '포인트'); // NaN // 연산불가
+        // console.log(100 + null); // 100 (100 + 0) // 숫자타입으로!
+        // console.log(100 + undefined); // NaN // 연산불가
+        // console.log('100' - undefined); //NaN
+        // console.log(100 + NaN); // NaN
+        // console.log('100'-null); // 100
+        // console.log('100'- NaN); // NaN
 
 
 
+
+        // ▶  Falsy (거짓같은 값) 
+        if(false) console.log('falsy');
+        if(0) console.log('falsy');
+        if('') console.log('falsy');
+        if(null) console.log('falsy');
+        if(undefined) console.log('falsy');
+        if(NaN) console.log('falsy');
+
+        // ▶  Truthy (참 같은 값)
+        
+
+        // user 객체 반환받는데,
+        // user가 null 또는 undefined 라면? 다른 기능이 동작하지 못하도록 처리하자
+        function printName(user){
+            if(user){
+                console.log(user.name);
+            }else{
+                console.log('유저 정보 없음');
+            }
+        }
+
+
+        // ▶  단축평가: && , ||
+        // ▷ 요약
+        // A && B: A가 truthy이면 B 반환, A가 falsy이면 A 반환
+        // A || B: A가 truthy이면 A 반환, A가 falsy이면 B 반환
+
+        // user 객체 존재하면 -> saveUserData(user); 실행
+        // if(user != null){   // -> 이렇게 할 필요가 없어짐
+        //     saveUserData(user);
+        // }
+        // user && saveUserData(user); // 단축평가를 통해 짧게 적을 수 있다.
+                                       // 앞이 falsy면 → 뒤 실행 안함
+
+
+        // input박스에서 값을 입력한다고 가정.
+        // input: '' 빈문자열이라면 -> '익명' 값을 할당
+        // let name = '';
+        //if(name == ''){  // -> 이렇게 할 필요가 없어짐
+        //    name = '익명';
+        //}
+        // const name = input || '익명'; // 단축평가를 통해 짧게 적을 수 있다.
+                                        // 앞이 truthy면 뒤는 실행하지 않음
+                                        // 앞이 falsy면 → 뒤 실행
+
+
+        // 예시) 기본값 설정
+        function great(name){
+            const username = name || 'Guest';
+            console.log(`Hello, ${username}`);
+        }
+        // great('John');
+        // great();
+
+
+        // 예시) 조건부 실행
+        const isLoggedIn = false;
+        // isLoggedIn && console.log('사용자 로그인');
+
+        let statusMsg = isLoggedIn && '환영' || '로그인 필요';
+        // let statusMsg = isLoggedIn ? '환영' : '로그인 필요'; // 번외) 삼항연산자 사용
+        // console.log(statusMsg);
+
+
+        // 예시)  옵셔널 체이닝 -> 문법 ?.
+        // ▶ 옵셔널 체이닝이란?
+        // 객체가 null / undefined이면, 에러 안내고 그냥 undefined 반환
+        const user ={
+            profile:{
+                nme: 'John' //name이 아니라 nme이라고 설정
+            },
+            setting:{ // settings가 아닌 setting이라고 설정
+                theme: 'black'
+            }
+        };
+
+        console.log(user?.profile?.name);
+        console.log(user.settings?.theme || 'light');
+
+
+        
 
     </script>
 </body>

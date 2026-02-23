@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // ▶ 명시적 타입 변환
+        // console.log(String(123)); // 문자열로 변환
+        // console.log(String(true)); // 문자열로 변환
+        // console.log(String(null)); // 문자열로 변환
+        // console.log(String(undefined)); // 문자열로 변환
+        // console.log(String([1,2,3])); // 문자열로 변환
+
+        // console.log(Number('123')); // 숫자로 변환
+        // console.log(Number('abc')); //NaN
+        // console.log(Number(true)); // 숫자로 변환
+        // console.log(Number(false)); // 숫자로 변환
+        // console.log(Number(null)); //0 // 숫자로 변환
+        // console.log(Number(undefined)); //NaN
+        // console.log(Number('')); // 빈문자열을 숫자로 변환하면 0
+
+        // console.log(Boolean(0)); // boolean타입으로 변환
+        // console.log(Boolean('')); // boolean타입으로 변환
+        // console.log(Boolean(null)); // boolean타입으로 변환
+        // console.log(Boolean(undefined)); // boolean타입으로 변환
+        // console.log(Boolean(NaN)); // boolean타입으로 변환
+        // console.log(Boolean([])); // (비어있는) 배열을 boolean 타입으로 변환하면 true
+        // console.log(Boolean({name: 'cloud'})); //  객체를 boolean 타입으로 변환하면 true
+        // console.log(Boolean('.')); // boolean타입으로 변환
+
+
+
+        // ▶ 암시적 타입 변환
+        // ▷ string + number, boolean, .. => string
+        console.log('100'+ 50); // 10050 -> string
+        console.log('100'+true); //100true -> string
+
+        console.log('---')
+        // ▷ string, number, boolean, 나머지연산 => number
+        console.log('100'- 50); //뺄셈을 하면 숫자타입으로! // 50
+        console.log('100'*50); //곱셈을 하면 숫자타입으로!
+        console.log('100'/50); //나눗셈을 하면 숫자타입으로!
+        console.log(100 + true); // 101 (100 + 1) // 숫자타입으로!
+        console.log(100 * '포인트'); // NaN // 연산불가
+        console.log(100 + null); // 100 (100 + 0) // 숫자타입으로!
+        console.log(100 + undefined); // NaN // 연산불가
+        console.log('100' - undefined); //NaN
+        console.log(100 + NaN); // NaN
+        console.log('100'-null); // 100
+        console.log('100'- NaN); // NaN
+
+
+
+
+    </script>
+</body>
+</html>

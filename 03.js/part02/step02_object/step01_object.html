@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // ▷ 기본 객체 (리터럴 객체) 생성
+        let obj1 = {
+            name: 'cloud',
+            age: 29
+        };
+
+        // console.log(obj1);
+        // console.log(obj1.name);
+        // console.log(obj1['age']);
+
+
+        // ▷ 생성자 함수를 이용하여 객체 생성 
+        let obj2 = new Object();
+        // console.log(obj2);
+        obj2.name = 'js';
+        obj2.name = 'js2';
+        // console.log(obj2);
+
+
+        // ▷ 사용자 정의 생성자 함수를 이용하여 객체 생성 
+        function Car(brand, color, price){
+            // brand, color, price
+            this.brand = brand;
+            this.color = color;
+            this.price = price;
+
+            this.turnOn = function(){
+                console.log('시동 걸림');
+            }
+        }
+
+        let bmw = new Car('bmw', 'red', 5000);
+        console.log(bmw);
+        bmw.turnOn();
+
+    </script>
+</body>
+</html>

@@ -30,7 +30,7 @@
         let names = ['ce','it','cloud'];
         let [, it, cloud] = names; //순서대로 들어감
 
-        console.log(it);
+        // console.log(it);
 
         // ▷ 객체 비구조화
         let info={
@@ -40,9 +40,8 @@
         }
 
         let {name, age, hobbies} = info;  //객체는 순서가 아니라 key이름 기준
-        console.log(age);
-        console.log(hobbies);
-
+        // console.log(age);
+        // console.log(hobbies);
 
 
         // ===========실습====================
@@ -71,9 +70,66 @@
         }
         
         let {lat,lng} = bret.address.geo;
-        console.log(lat);
-        console.log(lng);
+        // console.log(lat);
+        // console.log(lng);
 
+        let {username,email} = bret;
+        // console.log(username);
+        // console.log(email);
+
+        // =============================================================
+
+
+        // ▶ 매개변수 기본값 (value="")
+        function add(x, y=1){
+            return x+y;
+        }
+        // console.log(add(1));
+
+
+        // ▶ ...rest
+        // : 여러 값을 하나로 묶어서 "배열 또는 객체"로 만듦
+        function printData(...rest){
+            console.log(rest);
+        }
+
+        // printData(10,20,30,40,50,60);
+
+
+        // ▶ ...spread
+        // : 배열이나 객체를 풀어서 사용
+        // - 배열 합치기  - 배열 복사  - 함수 호출 시 펼치기  - 객체 복사/추가
+        let avengers = ['토르', '로키', '블랙위도우'];
+        let newAvengers = [...avengers,'스파이더맨'];
+        // console.log(newAvengers);
+
+        const arr1 = [1,2,3];
+        const arr2 = [4,5,6];
+        const merged = [...arr1,...arr2];
+        // console.log(merged);
+
+        const defaults = {theme:'light', lang:'ko'};
+        const userSettings = {theme: 'dark', lastSettingTime: new Date()};
+        const settings = {...defaults, ...userSettings};
+        // console.log(settings)
+
+
+        // =======실습==================================
+        // 시나리오 
+        // A 서버로부터 데이터 fetch(받아옴), 데이터를 추가하여 B 서버로 전달
+        function updateUserData(userId) {
+            // A서버로부터 데이터 fetch
+            const response = `{"id":1, "name":"json", "email":"json@example.com"}`;
+
+            const user = JSON.parse(response);
+
+            // 데이터를 추가하여 B 서버로 전달
+            const {name, email} = user;
+            const updateUser = {...user, lastLogin: new Date()};
+            return JSON.stringify(updateUser);
+        }
+        updateUserData(1);
+        
     </script>
 </body>
 </html>

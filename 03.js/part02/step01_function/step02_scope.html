@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // ▶ 호이스팅 (var, let, const 차이점과 특징)
+        // var x; 실제는 출력 아래에 선언과 할당이 이뤄졌지만, 상단에 x 변수가 선언된것처럼 동작
+        console.log(x); //undefined : 값 할당 X된 상태 // var는 호이스팅 됨!
+        var x= 10;
+
+
+        // 일시적 사각지대(TDZ)(Temporal Dead Zone) -> 변수를 선언하기 전에 접근할 수 없는 구간
+        // let y를 사실 이미 알고있음(호이스팅됨). 하지만 초기화되기 전까지 접근을 막아둠.
+        // console.log(y); // 에러 // let은 호이스팅 안됨. + const도 호이스팅 안됨. (사실상 let, const도 호이스팅이 되지만, var과는 다르게 정상적으로 동작하지 않고 에러가 발생)
+        // let y = 10;
+
+
+
+        printInfo();
+        
+        // "선언식"으로 된 함수는 호이스팅이 된다.
+        function printInfo(){
+            let name = 'CE';
+            console.log(name);
+        }
+        
+        // "표현식"으로된 함수는 호이스팅 X
+        // printInfo = function(){
+        //     let name = 'CE';
+        //     console.log(name);
+        // }
+
+
+        // ▶ 호이스팅? 코드가 실행되기 전에 변수나 함수의 “선언”이 위로 끌어올려진 것처럼 동작
+        //    1. 선언 먼저 확인(변수, 함수)    2. 코드 실행 
+        // ▷ 호이스팅 가능: var, 선언식 함수
+        // ▷ 호이스팅 불가능: let, const, 표현식 함수
+
+    </script>
+</body>
+</html>

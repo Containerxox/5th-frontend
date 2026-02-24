@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * < 자바스크립트 에러 종류 >
+         * SyntaxError (구문 오류): 괄호 닫기 누락, 잘못된 예약어 사용 등 문법이 틀린 경우
+            ReferenceError (참조 오류): 선언되지 않은 변수를 참조하거나 잘못된 변수명을 사용한 경우
+            TypeError (타입 오류): 숫자형에 함수를 호출하거나, 존재하지 않는 속성에 접근하는 등 데이터 타입이 맞지 않을 때 발생
+            RangeError (범위 오류): 숫자가 허용된 범위를 벗어났을 때 발생
+            URIError (URI 오류): encodeURI() 등 URI 처리 함수 오류
+            InternalError (내부 오류): 자바스크립트 엔진 내부 오류
+        */
+
+
+        // try{
+        //     // JSON.parse("일반 문자열");
+        //     throw new Error('Custom Error Msg');
+        // }catch(error){
+        //     // console.log(error.name);
+        //     // console.log(error.message);
+        //     // console.log(error.stack); //몇번째줄이 에러의 원인인지 출력해줌
+        //     console.error(error); // 에러 출력(표현)
+        // }finally{
+        //     console.log('finally block');
+        // }
+
+
+        //=============실습(내 코드)===========================
+        // let age = 'hello';
+        // // let age = 121;
+        // if(age>0 || age <120){
+        //     console.log(`당신의 나이는 ${age}살입니다.`);
+        // }else if(age != Number){
+
+        //     throw new TypeError('숫자 타입이 아닙니다.');
+        // }
+        // else{
+        //     throw new RangeError('0~120 범위 내의 숫자가 아닙니다.');
+        // }
+        
+        // try {
+        // } catch (error) {
+        //     console.error(error)
+        // }
+        // =====================================================
+
+
+
+        //=============실습(강사님 코드)===========================
+        /**
+         * 단지 개발자에게 정보 제공용 / 코드 실행에는 영향 X
+         * @throws {TypeError}
+         * @throws {RangeError}
+         * */
+        function validate(age){
+            
+            const numAge = Number(age); //age가 문자열이라면 숫자 변환시 NaN
+
+            if(Number.isNaN(numAge)){
+                throw new TypeError('나이는 숫자여야만 함~!');
+            }
+
+            if(numAge <0 || numAge > 120){
+                throw new RangeError('나이는 0~120 사이 값이여야만 함');
+            }
+
+            return {valid: true, age: numAge};
+        }
+
+        console.log(validate(151));
+        console.log(validate('hello'));
+
+        // =====================================================
+
+
+        // "사용자 정의 에러"를 만들어서 사용할 수 있을까?
+        // 커스텀 에러
+        class NotFoundError extends Error{
+            constructor(message){
+                this.name = 'NotFoundError';
+                this.statusCode = 404;
+            }
+        }
+
+    </script>
+</body>
+</html>

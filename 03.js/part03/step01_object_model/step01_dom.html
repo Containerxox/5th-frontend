@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+    <style>
+        .red {
+            color: #ff0000;
+        }
+        .blue {
+            color: #0000ff;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>Cities</h1>
+        <ul>
+            <li id="seoul" class="red">서울</li>
+            <li id="tokyo" class="red">도쿄</li>
+            <li id="beijing" class="red">베이징</li>
+            <li id="newyork">뉴욕</li>
+        </ul>
+    </div>
+
+    <script>
+        // console.log(document.getElementById('seoul'));
+        // console.log(document.querySelector('li#beijing'));
+        // console.log(document.getElementsByTagName('li'));
+        // console.log(document.getElementsByClassName('red'));
+
+
+        // HTMLCollection: live 요소 - idx 꼬임 현상 => 일부만 변경됨
+        // getElementsByClassName은 살아있는 리스트(실시간으로 변하는 리스트)
+        // const elements = document.getElementsByClassName('red');
+
+        // v1) querySelectAll를 써서 해결하기 
+        // const elements = document.querySelectorAll ('.red');
+        // console.log(elements);
+
+        // ▶ 요약
+        // getElementsByClassName = 움직이는 줄 🏃
+        // querySelectorAll = 사진 찍은 줄 📸
+
+        // for (let i = 0; i < elements.length; i++) {
+        //     const element = elements[i];
+        //     // console.log(typeof element); //객체(Object)
+        //     // console.log(element.getAttribute('class')); //red
+        //     // console.log(element.className); //red
+        //     element.className = 'blue';
+        // }
+
+        // v2) 위 for문은 도쿄 요소가 blue로 바뀌지 않는 문제점 발생
+        // elements 원본 배열을 쓰지 않고 복사해서 사용하자 
+        // 또는 classList 사용하여 특정 부분만 추가/삭제
+        // [...elements].forEach((element) => element.className = 'blue');
+        // [...elements].forEach((element) => element.classList.replace('red','blue'));
+
+
+        // v1 추가 설명) NodeList : static 요소
+        // const queryElements = document.querySelectorAll('.red');
+        // console.log(queryElements);
+        // queryElements.forEach((element) => elment.className = 'blue');
+
+
+
+        // ==================실습===============================
+        // 베이징 요소 선택 > 추가적인 문자열 추가 또는 색상 변경
+        const beijing = document.getElementById('beijing');
+        // console.log(beijing);
+
+        // ▶ 요소의 내부 텍스트 접근
+        beijing.textContent = 'Beijing';
+        beijing.innerText = '<b>Beijing</b>'; // 보안 이슈가 있어서 innerHTML을 사용하는 것을 권장!
+        beijing.innerHTML = '<b>Beijing</b>'; // 차이! 태그를 붙여주면 문자열이 아닌 HTML 태그로 받아들임.
+        
+        // console.log(beijing.textContent);
+
+
+        // ▶ 스타일 변경해주기
+        // console.log(beijing.style);
+        beijing.style.color = 'gold';
+        // console.log(beijing.style.color);
+        beijing.style.fontSize = '24px';
+        // ↳ 규칙: JS에서 CSS 직접적으로 조작하고 싶다면,
+        //         하이픈(-)으로 적어진 CSS를 JS는 camelCase로 변경해서 적어줘야 한다.
+
+        
+        // ▶ 동적으로 추가/삭제
+        const newLi = document.createElement('li'); //createElement를 통해 요소 생성
+        beijing.append(newLi);
+        // beijing.appendChild(newLi)// 베이징 요소 아래에 newLi 추가
+        //beijing.removeChild(newLi); // 베이징 요소 아래에 생성된 newLi 삭제
+        console.log(newLi);
+
+
+
+        //======================================================
+
+    </script>
+</body>

@@ -24,7 +24,7 @@
         <button id="btn">버튼</button>
     </div> -->
 
-    <hr>
+    <!-- <hr>
 
     <div>
         div
@@ -34,7 +34,14 @@
                 link
             </a>
         </p>
-    </div>
+    </div> -->
+
+    <hr>
+
+    <a href="https://naver.com" target="_blank">네이버 이동</a>
+    <input type="text">
+    <input type="submit" value="검색">
+
     
     <script>
         // ▷ 인라인 방식 (직접 등록하는 방식) -> 추천X
@@ -91,29 +98,41 @@
 
         //==========================================================
         
-        const div = document.querySelector('div');
-        const p = document.querySelector('p');
-        const a = document.querySelector('a');
+        // const div = document.querySelector('div');
+        // const p = document.querySelector('p');
+        // const a = document.querySelector('a');
 
-        // 캡쳐링 (true값을 줘야지만 캡처링 정상 동작) (위에서 아래로)
-        // div.addEventListener('click', () => alert('div 캡쳐'), true);
-        // p.addEventListener('click', () => alert('p 캡쳐', true));
-        // a.addEventListener('click', () => alert('a 캡쳐', true));
+        // // 캡쳐링 (true값을 줘야지만 캡처링 정상 동작) (위에서 아래로)
+        // // div.addEventListener('click', () => alert('div 캡쳐'), true);
+        // // p.addEventListener('click', () => alert('p 캡쳐', true));
+        // // a.addEventListener('click', () => alert('a 캡쳐', true));
 
-        // 버블링 (아래에서 위로)
-        div.addEventListener('click', () => alert('div 버블'));
-        p.addEventListener('click', () => alert('p 버블'));
-        a.addEventListener('click', () => alert('a 버블'));
+        // // 버블링 (아래에서 위로)
+        // div.addEventListener('click', () => alert('div 버블'));
+        // p.addEventListener('click', () => alert('p 버블'));
+        // a.addEventListener('click', () => alert('a 버블'));
 
-        p.addEventListener('click', (e) => {
-            e.stopPropagation(); //p에서 전파 금지
-        });
-        a.addEventListener('click', (e) => {
-            e.stopPropagation(); //a에서 전파 금지
-        });
+        // // ▶ stopPropagation()으로 상위 요소의 이벤트가 전파되는 것을 막고
+        // // 해당 요소만 이벤트가 실행되도록 할 수 있다!
+        // p.addEventListener('click', (e) => {
+        //     e.stopPropagation(); //p에서 전파 금지
+        // });
+        // a.addEventListener('click', (e) => {
+        //     e.stopPropagation(); //a에서 전파 금지
+        // });
 
-        // stopPropagation()으로 상위 요소의 이벤트가 전파되는 것을 막고
-        // 해당 요소만 이벤트가 실행되도록 할 수 있다!
+
+        //==========================================================
+        const aElement = document.querySelector('a'); 
+        aElement.addEventListener('click',(e) => {
+            e.preventDefault(); // 기본동작 막음 (이 경우, 클릭하면 target=_blank 새창으로 이동되지 않음)
+        })
+
+        const formElement = document.querySelector('form'); 
+        aElement.addEventListener('click',(e) => {
+            e.preventDefault(); // 기본동작 막음 (이 경우, 검색 눌러도 폼이 제출되지 않음)
+        })
+
 
         
 

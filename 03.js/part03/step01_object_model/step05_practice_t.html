@@ -89,7 +89,7 @@
     <button id="add-btn">추가</button>
     <ul id="todo-list"></ul>
 
-    <script>
+    <!-- <script>
         const input = document.getElementById('todo-input');
         const btn = document.getElementById('add-btn');
         const list = document.getElementById('todo-list'); 
@@ -113,9 +113,71 @@
             // 입력창 초기화
             input.value = '';
 
-        } )
+        }); 
+    </script>-->
 
-    </script>
+
+        <!-- ================================================================= -->
+
+
+        <script>
+        //  ▶ 새로고침을 하더라고 추가한 리스트들을 유지하는 방법 (locaStorage 이용하기)
+        //  localStorage.setItem('user-name', 'js');
+        //  console.log(localStorage.getItem('user-name'));
+
+        //  const user1 = {id:1, task: 'study'};
+        //  localStorage.setItem('user1', JSON.stringify(user1));  //객체말고 문자열로 변환해서 저장해줘야해
+        //  const foundUser1 = JSON.parse(localStorage.getItem('user1')); //JSON문자열을 객체로 변환
+        //  console.log(foundUser1);
+
+
+        // ▶ LocalStroage를 활용한 버전
+        const input = document.getElementById('todo-input');
+        const btn = document.getElementById('add-btn');
+        const list = document.getElementById('todo-list');
+
+        // 로드 : 데이터를 불러오기
+        window.onload = () => {
+            const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+            savedTodos.forEach(todoText => createTodoElement(todoText));
+        }
+
+        // 저장 : 리스트를 localStorage 저장
+        function saveTodos() {
+            const todoItems = [];
+            list.querySelectorAll('li').forEach(li => {
+                todoItems.push(li.firstChild.textContent);
+            });
+            localStorage.setItem('todos', JSON.stringify(todoItems));
+        }
+
+        // 출력 : UI 요소 생성
+        function createTodoElement(text) {
+            // li 생성 <- input.value
+            const li = document.createElement('li');
+            li.innerHTML = text;
+
+            // x 버튼 생성
+            const delBtn = document.createElement('button');
+            delBtn.innerHTML = ' X';
+            delBtn.onclick = () => {
+                li.remove();
+                saveTodos();
+            };
+
+            // 출력
+            li.appendChild(delBtn);
+            list.appendChild(li);
+        }
+
+        // 추가 : 버튼 클릭 이벤트
+        btn.addEventListener('click', () => {
+            createTodoElement(input.value);
+            saveTodos();
+            input.value = '';
+        });
+        </script>
+
 
 </body>
 

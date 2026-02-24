@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        :root {
+        /* :root {
             --bg: #ffffff;
             --text: #000000;
         }
@@ -29,9 +29,9 @@
             cursor: pointer;
             border-radius: 8px;
             border: 1px solid #ccc;
-        }
+        } */
 
-        /* .warning {
+        .warning {
             color: red;
             font-weight: bold;
         }
@@ -41,29 +41,81 @@
             height: 100px;
             display: block;
             margin-bottom: 5px;
-        } */
+        }
     </style>
 </head>
 
 <body>
-    <button id="theme-btn">테마 전환하기</button>
-    <script>
+    <!-- <button id="theme-btn">테마 전환하기</button> -->
+    <!-- <script>
         const themeBtn = document.getElementById("theme-btn");
 
         themeBtn.addEventListener('click', (e) =>{
             document.body.classList.toggle('dark-mode');
             //↑ body태그에 dark-mode 클래스 있으면 제거, 없으면 추가
         });
-    </script>
+    </script> -->
 
+
+    <!--==========================================================================  -->
+
+
+    <!-- 이벤트 객체 활용: e.target.value -->
     <!-- <textarea id="content" placeholder="내용을 입력하세요 (최대 20자)"></textarea>
     <div>글자 수: <span id="char-count">0</span> / 20</div> -->
+    <!-- <script>
+        const textarea = document.getElementById('content');
+        const countSpan = document.getElementById('char-count');
 
+        textarea.addEventListener('input',(e) => {
+            // console.log(e.target.value);
 
-    <!-- <h2>오늘의 할 일</h2>
+            const length = e.target.value.length;
+            countSpan.innerHTML = length;
+
+            if(length > 20){
+                countSpan.classList.add('warning');
+            }else{
+                countSpan.classList.remove('warning');
+            }
+        } )
+    </script> -->
+
+    <!--==========================================================================  -->
+
+    <!-- input.value -->
+    <h2>오늘의 할 일</h2>
     <input type="text" id="todo-input" placeholder="할 일을 입력하세요">
     <button id="add-btn">추가</button>
-    <ul id="todo-list"></ul> -->
+    <ul id="todo-list"></ul>
+
+    <script>
+        const input = document.getElementById('todo-input');
+        const btn = document.getElementById('add-btn');
+        const list = document.getElementById('todo-list'); 
+
+        btn.addEventListener('click', () =>{
+            // li 생성 (input.value 이용)
+            const li = document.createElement('li');
+            li.innerHTML = input.value;
+            
+            // x버튼 생성 and x버튼 클릭하면 리스트 삭제
+            const delBtn = document.createElement('button');
+            delBtn.innerHTML = 'X';
+            delBtn.onclick = () => {
+                li.remove();
+            }
+
+            //출력
+            li.appendChild(delBtn);
+            list.appendChild(li);
+
+            // 입력창 초기화
+            input.value = '';
+
+        } )
+
+    </script>
 
 </body>
 

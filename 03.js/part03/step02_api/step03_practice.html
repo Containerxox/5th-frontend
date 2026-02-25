@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>step03_apply.html</title>
+</head>
+<body>
+    <!-- dog-api 실습 -->
+    <!-- https://dog.ceo/ -->
+    <!-- fetch 버튼 클릭시 div영역에 이미지 추가 -->
+    <button id="fetch-dog-api">fetch</button>
+    <hr />
+    <div id="show-dog-img"></div>
+
+    <script>
+        // 1. fetch 버튼 클릭
+        // 2. https://dog.ceo/api/breeds/image/random로 fetch
+        // 3. 반환받는 JSON -> message 이미지 주소
+        // 4. <div id="show-dog-img"></div> 영역에 이미지 출력하기
+
+    //     function loadDogs(){
+    //         try{
+    //             const btn = document.getElementById('fetch-dog-api'); 
+    //             btn.addEventListener('click',(e)=>{
+    //                 fetch('https://dog.ceo/api/breeds/image/random')
+    //                     .then(response => response.json())
+    //                     .then(data => {
+    //                         const img = document.createElement('img');
+    //                         img.src = data.message;
+    //                         img.width=300;
+
+    //                         document.getElementById('show-dog-img').appendChild(img)
+    //                     });
+    //             });
+    //     }catch(error){
+
+    //     }
+    // }
+    // loadDogs();
+
+    // =====================강사님 코드===================
+    const fetchBtn = document.getElementById('fetch-dog-api');
+    const imgDiv = document.getElementById('show-dog-img');
+    const BASE_URL = 'https://dog.ceo/api/breeds/image/random';
+
+    fetchBtn.addEventListener('click',(e)=> {
+        fetch(BASE_URL)
+            .then(res => res.json())    
+            .then(data=> {
+                const imgUrl = data.message;
+                const dogImg = document.createElement('img');
+                dogImg.src = imgUrl;
+                dogImg.width = 300;
+                dogImg.height = 300;
+                imgDiv.appendChild(dogImg);
+            })
+            .catch(error=>{})
+    })
+    </script>
+</body>
+</html>

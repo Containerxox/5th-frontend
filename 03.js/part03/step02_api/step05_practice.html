@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 - 이메일 중복 확인</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            background: #f5f6fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Pretendard', -apple-system, sans-serif;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 48px 44px;
+            width: 420px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+
+        .card h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 6px;
+        }
+        .card p {
+            font-size: 0.875rem;
+            color: #888;
+            margin-bottom: 32px;
+        }
+
+        /* === Form fields === */
+        .field { margin-bottom: 20px; }
+
+        label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            color: #1a1a2e;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #fafafa;
+        }
+        input:focus {
+            border-color: #4f6ef7;
+            box-shadow: 0 0 0 3px rgba(79,110,247,0.1);
+            background: #fff;
+        }
+        input.error {
+            border-color: #e53e3e;
+            box-shadow: 0 0 0 3px rgba(229,62,62,0.1);
+        }
+        input.success {
+            border-color: #38a169;
+            box-shadow: 0 0 0 3px rgba(56,161,105,0.1);
+        }
+
+        /* === 메세지 === */
+        .msg {
+            font-size: 0.78rem;
+            margin-top: 5px;
+            min-height: 18px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .msg.error   { color: #e53e3e; }
+        .msg.success { color: #38a169; }
+        .msg.loading { color: #888; }
+
+        .msg svg { flex-shrink: 0; }
+
+        /* === Submit === */
+        .submit-btn {
+            width: 100%;
+            padding: 13px;
+            background: #4f6ef7;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .submit-btn:hover   { background: #3a5be0; }
+        .submit-btn:active  { transform: scale(0.99); }
+        .submit-btn:disabled {
+            background: #c0c7e8;
+            cursor: not-allowed;
+        }
+
+        /* === 결과 토스트 === */
+        .toast {
+            display: none;
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-align: center;
+        }
+        .toast.show { display: block; }
+        .toast.ok  { background: #f0fff4; color: #276749; border: 1px solid #9ae6b4; }
+        .toast.fail { background: #fff5f5; color: #c53030; border: 1px solid #feb2b2; }
+
+        /* === spinner === */
+        .spin {
+            display: inline-block;
+            width: 11px; height: 11px;
+            border: 2px solid #ccc;
+            border-top-color: #888;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            margin-right: 2px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>회원가입</h1>
+    <p>이미 가입된 이메일은 사용할 수 없습니다.</p>
+
+    <div class="field">
+        <label for="name">이름</label>
+        <input type="text" id="name" placeholder="홍길동">
+        <div class="msg" id="name-msg"></div>
+    </div>
+
+    <div class="field">
+        <label for="email">이메일</label>
+        <input type="email" id="email" placeholder="example@email.com"
+               oninput="onEmailInput()" onblur="checkEmail()">
+        <div class="msg" id="email-msg"></div>
+    </div>
+
+    <div class="field">
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" placeholder="8자 이상 입력">
+        <div class="msg" id="pw-msg"></div>
+    </div>
+
+    <button class="submit-btn" id="submit-btn" onclick="submitForm()">가입하기</button>
+
+    <div class="toast" id="toast"></div>
+</div>
+
+<script>
+    const BASE_URL = 'https://jsonplaceholder.typicode.com/users';
+
+    let emailValid = false;   // 이메일 중복 검사 통과 여부
+    let checkTimer = null;    // debounce 타이머
+
+    // =========================================
+    //  이메일 input 이벤트 → debounce 처리
+    //  타이핑 멈추고 600ms 후 자동 중복 검사
+    // =========================================
+    function onEmailInput() {
+        emailValid = false;
+        clearTimeout(checkTimer);
+
+        const email = document.getElementById('email').value.trim();
+        const msgEl = document.getElementById('email-msg');
+
+        if (!email) {
+            setMsg('email-msg', '', '');
+            resetInput('email');
+            return;
+        }
+
+        // 600ms debounce
+        checkTimer = setTimeout(() => {
+            checkEmail();
+        }, 600);
+    }
+
+    // =========================================
+    //  이메일 중복 검사 (axios 사용)
+    // =========================================
+    async function checkEmail() {
+        // email 요소와 email 내부 작성한 값을 js 변수에 담기!!
+        const emailEl = document.getElementById('email');
+        const email = emailEl.value.trim();
+        console.log(email);
+
+        // 빈값 무시
+        if (!email) return;
+
+        // 이메일 형식 검사
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            emailValid = false;
+            emailEl.className = 'error';
+            setMsg('email-msg', 'error', '올바른 이메일 형식이 아닙니다.');
+            return;
+        }
+
+        // 로딩 상태
+        setMsg('email-msg', 'loading', '<span class="spin"></span> 확인 중...');
+        resetInput('email');
+
+        try {
+            // 이미 존재하는 이메일인지 확인
+            // axios를 이용하여 BASE_URL의 정보를 가지고 오되,
+            // 내가 작성한 email과 가져온 user의 email들을 비교하여
+            // 중복되는 이메일이 있다면 true, 없다면 false를 isDuplicate에 담아 로직 완성!!
+            const response = await axios.get(BASE_URL); // 사용자 데이터 전체 가져옴
+
+            const users = response.data; // 사용자 데이터를 배열로!
+
+            // v1) .some() 이용
+            const isDuplicate = users.some(users => users.email === email); // 하나라도 같은 이메일 있으면 true
+            // v2) 일반적인 for문
+            // let isDuplicate = false;
+            // for (let i = 0; i < users.length; i++) {
+            //     if(users[i].email === email){
+            //         isDuplicate = true;
+            //         break; //중복 발견(true)하면 반복 종료
+            //     }
+            // }
+            // v3) 강사님 코드-v1
+            // const isDuplicate = checkDuplicate(users, email);
+            // function checkDuplicate(users, email){
+            //     for(const user of users){
+            //         if(user.email === email){
+            //             return true;
+            //         }
+            //     }
+            //     return false;
+            // }
+            // v3) 강사님 코드-v2
+            // const found = users.find(user => user.email === email) // 존재하면 email가져오고, 존재하지 않으면 undefined
+            // const isDuplicate = found !== undefined; 
+
+
+            if (isDuplicate) {
+                // ❌ 중복 이메일
+                emailValid = false;
+                emailEl.className = 'error';
+                setMsg('email-msg', 'error',
+                    `<svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                    이미 사용 중인 이메일입니다.`
+                );
+            } else {
+                // ✅ 사용 가능한 이메일
+                emailValid = true;
+                emailEl.className = 'success';
+                setMsg('email-msg', 'success',
+                    `<svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    사용 가능한 이메일입니다.`
+                );
+            }
+
+        } catch (error) {
+            emailValid = false;
+            setMsg('email-msg', 'error', '서버 오류가 발생했습니다. 다시 시도해주세요.');
+            console.error('이메일 중복 확인 Error:', error.message);
+            throw error;
+        }
+    }
+
+    // =========================================
+    //  폼 제출
+    // =========================================
+    async function submitForm() {
+        const name     = document.getElementById('name').value.trim();
+        const email    = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+
+        let valid = true;
+
+        // 이름 검사
+        if (!name) {
+            document.getElementById('name').className = 'error';
+            setMsg('name-msg', 'error', '이름을 입력해주세요.');
+            valid = false;
+        } else {
+            document.getElementById('name').className = 'success';
+            setMsg('name-msg', '');
+        }
+
+        // 이메일 검사
+        if (!email) {
+            document.getElementById('email').className = 'error';
+            setMsg('email-msg', 'error', '이메일을 입력해주세요.');
+            valid = false;
+        } else if (!emailValid) {
+            valid = false;  // checkEmail()에서 이미 메세지 표시됨
+        }
+
+        // 비밀번호 검사
+        if (password.length < 8) {
+            document.getElementById('password').className = 'error';
+            setMsg('pw-msg', 'error', '비밀번호는 8자 이상이어야 합니다.');
+            valid = false;
+        } else {
+            document.getElementById('password').className = 'success';
+            setMsg('pw-msg', '');
+        }
+
+        if (!valid) return;
+
+        // === 가입 API 호출 (POST) ===
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.textContent = '처리 중...';
+
+        try {
+            const response = await axios.post(BASE_URL, { name, email, password });
+            showToast('ok', `🎉 ${name}님, 가입을 환영합니다!`);
+            console.log('회원가입 성공:', response.data);
+        } catch (error) {
+            showToast('fail', '가입 중 오류가 발생했습니다. 다시 시도해주세요.');
+            console.error('회원가입 Error:', error.message);
+        } finally {
+            btn.disabled = false;
+            btn.textContent = '가입하기';
+        }
+    }
+
+    // =========================================
+    //  Helper
+    // =========================================
+    function setMsg(id, type, html = '') {
+        const el = document.getElementById(id);
+        el.className = `msg ${type}`;
+        el.innerHTML = html;
+    }
+
+    function resetInput(id) {
+        document.getElementById(id).className = '';
+    }
+
+    function showToast(type, msg) {
+        const toast = document.getElementById('toast');
+        toast.className = `toast show ${type}`;
+        toast.textContent = msg;
+        setTimeout(() => toast.className = 'toast', 4000);
+    }
+</script>
+</body>
+</html>
